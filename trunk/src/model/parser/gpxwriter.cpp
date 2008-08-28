@@ -37,7 +37,7 @@ bool GpxWriter::write(QIODevice *device,Activities *activities)
 	writeAttribute("xmlns","http://www.topografix.com/GPX/1/1");
 	writeAttribute("creator","qVanHeartRate");
 	writeAttribute("version","1.1");
-	writeAttribute("xmlns:xsi","http://www.W3.org/2001/XMLSchema-instance");
+	writeAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
 	writeAttribute("xsi:schemaLocation","http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
 
 
