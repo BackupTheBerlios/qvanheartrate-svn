@@ -44,7 +44,7 @@ private:
 	void readTrack(Track *track);
 	void readTrackpoint(Trackpoint *trackPoint);
 	void readHeartRateBpm(Trackpoint *trackpoint);
-	void readPosition(Position *position);
+	Position readPosition();
 
 	void readAuthor(Author *autor);
 };

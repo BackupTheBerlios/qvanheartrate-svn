@@ -20,13 +20,15 @@
 #include <QList>
 #include "trackpoint.h"
 class GpxWriter;
-
+class QGraphicsScene;
 class Track: public QList<Trackpoint *>
 {
 public:
 	Track();
 	virtual ~Track();
 	void save(GpxWriter *writer);
+	void drawMapScene(QGraphicsScene *scene);
+
 
 };
 

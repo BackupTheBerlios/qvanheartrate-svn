@@ -15,25 +15,19 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
-#ifndef POSITION_H_
-#define POSITION_H_
-#include <qglobal.h>
+#ifndef MAPWIDGET_H_
+#define MAPWIDGET_H_
+#include <QGraphicsView>
 
-#include <QPointF>
-
-class Position : public QPointF
+class MapWidget: public QGraphicsView
 {
+	Q_OBJECT
 public:
-	Position();
-	virtual ~Position();
-	void setLatitudeDegrees(qreal degrees);
-	void setLongitudeDegrees(qreal degrees);
+	MapWidget();
+	virtual ~MapWidget();
 
-	qreal getLatitudeDegrees() {return y();};
-	qreal getLongitudeDegrees() {return x();};
-
-private:
-
+public slots:
+	void zoomToFit();
 };
 
-#endif /* POSITION_H_ */
+#endif /* MAPWIDGET_H_ */

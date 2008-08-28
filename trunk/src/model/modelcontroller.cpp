@@ -16,10 +16,12 @@
 //C-  ------------------------------------------------------------------
 
 #include "modelcontroller.h"
+#include <QObject>
 #include <QString>
 #include <QFile>
 #include <QDebug>
 #include <QList>
+#include <QGraphicsScene>
 #include "model/parser/tcxreader.h"
 #include "model/parser/gpxwriter.h"
 #include "model/elements/activities.h"
@@ -28,7 +30,7 @@
 ModelController::ModelController()
 {
 	activities = new Activities;
-
+	mapScene = new QGraphicsScene(this);
 }
 
 ModelController::~ModelController()
@@ -50,10 +52,12 @@ bool ModelController::load(QString fileName)
 	}
 	else
 	{
-		foreach(Activity *a, *tcxReader.getActivities()){
-		activities->append(a);
-	}
-}
+		foreach(Activity *a, *tcxReader.getActivities())
+		{
+		   activities->append(a);
+	       drawMapScene();
+	    }
+    }
 
 return true;
 }
@@ -71,4 +75,9 @@ bool ModelController::save(QString fileName)
 		return false;
 	}
 	return true;
+}
+
+void ModelController::drawMapScene()
+{
+	activities->drawMapScene(mapScene);
 }

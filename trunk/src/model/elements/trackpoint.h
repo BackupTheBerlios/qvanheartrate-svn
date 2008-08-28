@@ -19,24 +19,23 @@
 #define TRACKPOINT_H_
 #include <QDateTime>
 
-class Position;
+#include "model/elements/position.h"
 class GpxWriter;
-
 class Trackpoint
 {
 public:
 	Trackpoint();
 	virtual ~Trackpoint();
-	void setPosition(Position *position) {this->position = position;};
+	void setPosition(Position p) { position = p;};
 	void setDateTime(QDateTime dt) {time = dt;};
 	void setAltitudeMeters(qreal altiMeters) {altitudeMeters = altiMeters;};
 	void setDistanceMeters(qreal distMeters) {distanceMeters = distMeters;};
 	void setHeartRateBpm(int rate) {heartRateBpm = rate;};
 	void save(GpxWriter *writer);
-
+	Position getPosition();
 private:
 	QDateTime time;           // <Time>2008-08-21T16:24:05Z</Time>
-	Position *position;
+	Position position;
     qreal altitudeMeters; // <AltitudeMeters>136.140</AltitudeMeters>
     qreal distanceMeters; // <DistanceMeters>160468.516</DistanceMeters>
     int heartRateBpm;     //     <Value>95</Value>

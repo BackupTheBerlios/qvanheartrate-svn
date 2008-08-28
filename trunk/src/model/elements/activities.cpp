@@ -17,23 +17,32 @@
 
 #include "activities.h"
 #include "model/parser/gpxwriter.h"
+#include <QGraphicsScene>
 
 Activities::Activities()
 {
-	// TODO Auto-generated constructor stub
+  // TODO Auto-generated constructor stub
 
 }
 
 Activities::~Activities()
 {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 
 void Activities::save(GpxWriter *writer)
 {
-	foreach(Activity *activity, *this)
-	{
-		activity->save(writer);
-	}
+  foreach(Activity *activity, *this)
+  {
+   activity->save(writer);
+  }
 
+}
+
+void Activities::drawMapScene(QGraphicsScene *scene)
+{
+  foreach(Activity *activity, *this)
+  {
+    activity->drawMapScene(scene);
+  }
 }

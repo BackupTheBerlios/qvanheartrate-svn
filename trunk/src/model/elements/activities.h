@@ -19,13 +19,17 @@
 #define ACTIVITIES_H_
 
 #include "model/elements/activity.h"
+class QGraphicsScene;
 class GpxWriter;
+
 class Activities : public QList<Activity *>
 {
 public:
 	Activities();
 	virtual ~Activities();
 	void save(GpxWriter *writer);
+	void drawMapScene(QGraphicsScene *scene);
+
 
 };
 

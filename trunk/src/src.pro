@@ -2,8 +2,8 @@ TEMPLATE = app
 TARGET   = qVanHeartRate
 
 
-QT += network
-CONFIG += debug qtestlib
+QT += network webkit
+CONFIG += debug qtestlib 
 
 INCLUDEPATH += . 
 
@@ -17,6 +17,7 @@ UI_DIR =_qbuild_/ui
 SOURCES  = \
            main.cpp  \
            view/mainwindow.cpp \
+           view/graphicsview/mapwidget.cpp \
            model/modelcontroller.cpp \
            model/elements/activities.cpp \
            model/elements/activity.cpp \
@@ -31,6 +32,7 @@ SOURCES  = \
                       
 HEADERS  = \
            view/mainwindow.h \
+           view/graphicsview/mapwidget.h \
            model/modelcontroller.h \
            model/elements/activities.h \
            model/elements/activity.h \

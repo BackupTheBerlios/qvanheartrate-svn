@@ -19,8 +19,6 @@
 
 Position::Position()
 {
-	latitudeDegrees = 3333.2222;
-	longitudeDegrees = 3333.2222;
 
 }
 
@@ -30,11 +28,11 @@ Position::~Position()
 }
 void Position::setLatitudeDegrees(qreal degrees)
 {
-	latitudeDegrees = degrees;
+	setY(degrees);
 }
 
 void Position::setLongitudeDegrees(qreal degrees)
 {
-	longitudeDegrees = degrees;
+	setX(degrees);
 }
 

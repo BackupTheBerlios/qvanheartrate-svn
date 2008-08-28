@@ -15,7 +15,10 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
+
 #include "activity.h"
+
+#include <QGraphicsScene>
 #include "model/elements/lap.h"
 #include "model/parser/gpxwriter.h"
 
@@ -44,3 +47,12 @@ void Activity::save(GpxWriter *writer)
 	writer->writeEndElement();
 
 }
+
+void Activity::drawMapScene(QGraphicsScene *scene)
+{
+	foreach(Lap *lap, *this)
+	{
+	  lap->drawMapScene(scene);
+    }
+}
+

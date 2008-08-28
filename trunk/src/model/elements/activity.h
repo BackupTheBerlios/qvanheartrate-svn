@@ -23,6 +23,7 @@
 #include "lap.h"
 #include "creator.h"
 class GpxWriter;
+class QGraphicsScene;
 class Activity : public QList<Lap *>
 {
 public:
@@ -30,6 +31,7 @@ public:
 	virtual ~Activity();
 	void setId(QString id) {this->id = id;};
 	void save(GpxWriter *writer);
+	void drawMapScene(QGraphicsScene *scene);
 
 private:
 	QString sport;

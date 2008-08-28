@@ -17,17 +17,26 @@
 
 #ifndef MODELCONTROLLER_H_
 #define MODELCONTROLLER_H_
+#include <QObject>
 #include <QString>
+
 class Activities;
-class ModelController
+class QGraphicsScene;
+
+class ModelController : public QObject
 {
+	Q_OBJECT
 public:
 	ModelController();
 	virtual ~ModelController();
 	bool load(QString fileName);
 	bool save(QString fileName);
+	void drawMapScene();
+	QGraphicsScene *getMapScene() {return mapScene;};
+
 private:
 	Activities *activities;
+	QGraphicsScene *mapScene;
 
 };
 

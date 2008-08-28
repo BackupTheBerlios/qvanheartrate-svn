@@ -16,7 +16,11 @@
 //C-  ------------------------------------------------------------------
 
 #include "track.h"
-
+#include <QPolygonF>
+#include <QPen>
+#include <QGraphicsScene>
+#include <QDebug>
+#include "model/elements/position.h"
 Track::Track()
 {
 	// TODO Auto-generated constructor stub
@@ -34,5 +38,22 @@ void Track::save(GpxWriter *writer)
 	{
 		trackPoint->save(writer);
 	}
+}
 
+
+void Track::drawMapScene(QGraphicsScene *scene)
+{
+  QPainterPath *pa = 0;
+  foreach(Trackpoint *trackPoint, *this)
+  {
+	  Position po = trackPoint->getPosition();
+	  if (!po.isNull())
+		  if (!pa)
+			  pa = new QPainterPath(QPointF(po.x(),-po.y()));
+		  else
+			  pa->lineTo((QPointF(po.x(),-po.y())));
+  }
+ // qDebug() << p;
+  if (pa)
+	  scene->addPath(*pa,QPen(QColor(Qt::black)));
 }

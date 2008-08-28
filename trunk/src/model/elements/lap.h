@@ -20,6 +20,7 @@
 #include <QList>
 #include "track.h"
 class GpxWriter;
+class QGraphicsScene;
 
 class Lap: public QList<Track *>
 {
@@ -27,6 +28,7 @@ public:
 	Lap();
 	virtual ~Lap();
 	void save(GpxWriter *writer);
+	void drawMapScene(QGraphicsScene *scene);
 
 private:
 };

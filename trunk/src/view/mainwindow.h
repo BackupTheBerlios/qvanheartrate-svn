@@ -21,19 +21,23 @@
 
 class QMenu;
 class QAction;
-
+class ModelController;
+class MapWidget;
 class MainWindow: public QMainWindow
 {
 	Q_OBJECT
 public:
-	MainWindow() ;
+	MainWindow(ModelController *modelControlle) ;
 	virtual ~MainWindow();
 
 private:
 	void createMenus();
 	void createActions();
 	QAction *loadAction;
+	QAction *zoomToFit;
 	QMenu *fileMenu;
+	ModelController *modelController;
+	MapWidget *mapView;
 private slots:
 	void load();
 

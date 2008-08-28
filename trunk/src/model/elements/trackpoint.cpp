@@ -16,12 +16,13 @@
 //C-  ------------------------------------------------------------------
 
 #include "trackpoint.h"
+#include <QDebug>
 #include "model/parser/gpxwriter.h"
 #include "model/elements/position.h"
+
 Trackpoint::Trackpoint()
 {
 	// TODO Auto-generated constructor stub
-	position = 0;
 	altitudeMeters = 0.0;
 	time.setTime_t(0);
 }
@@ -33,28 +34,28 @@ Trackpoint::~Trackpoint()
 
 void Trackpoint::save(GpxWriter *writer)
 {
-	if (position)
+	if (!position.isNull())
 	{
-		qreal lat = position->getLatitudeDegrees();
-		qreal lon = position->getLongitudeDegrees();
-		if (lat != 3333.2222 && lon != 3333.2222)
+		writer->writeStartElement("trkpt");
+		writer->writeAttribute("lat", QString::number(
+				position.getLatitudeDegrees()));
+		writer->writeAttribute("lon", QString::number(
+				position.getLongitudeDegrees()));
+		if (altitudeMeters != 0.0)
 		{
-			writer->writeStartElement("trkpt");
-			writer->writeAttribute("lat", QString::number(
-					position->getLatitudeDegrees()));
-			writer->writeAttribute("lon", QString::number(
-					position->getLongitudeDegrees()));
-			if (altitudeMeters != 0.0)
-			{
-				writer->writeTextElement("ele", QString::number(altitudeMeters));
-			}
-			if (!time.isNull())
-			{
-				writer->writeTextElement("time", time.toString(Qt::ISODate)+"Z");
-			}
-
-			writer->writeEndElement();
+			writer->writeTextElement("ele", QString::number(altitudeMeters));
+		}
+		if (!time.isNull())
+		{
+			writer->writeTextElement("time", time.toString(Qt::ISODate) + "Z");
 		}
 
+		writer->writeEndElement();
 	}
+
+}
+
+Position Trackpoint::getPosition()
+{
+	return position;
 }

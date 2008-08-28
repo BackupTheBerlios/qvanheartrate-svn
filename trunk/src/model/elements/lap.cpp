@@ -37,3 +37,11 @@ void Lap::save(GpxWriter *writer)
 		track->save(writer);
 	}
 }
+
+void Lap::drawMapScene(QGraphicsScene *scene)
+{
+  foreach(Track *track, *this)
+    {
+      track->drawMapScene(scene);
+    }
+}

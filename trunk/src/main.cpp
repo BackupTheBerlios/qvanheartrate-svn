@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	MainWindow mainWindow;
+	MainWindow mainWindow(&model);
 	mainWindow.show();
 	QTranslator translator;
 	translator.load("src_de", QCoreApplication::applicationDirPath());

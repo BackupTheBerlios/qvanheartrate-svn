@@ -20,11 +20,17 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QDebug>
-#include "model/parser/tcxreader.h"
+#include "model/modelcontroller.h"
+#include "view/graphicsview/mapwidget.h"
 
-MainWindow::MainWindow() :
-	QMainWindow()
+MainWindow::MainWindow(ModelController *modelController) :
+	QMainWindow(), modelController(modelController)
 {
+
+	mapView = new MapWidget();
+	mapView->setScene(modelController->getMapScene());
+	setCentralWidget(mapView);
+
 	createMenus();
 }
 
@@ -40,6 +46,12 @@ void MainWindow::createActions()
 	loadAction->setShortcut(tr("Ctrl+L"));
 	loadAction->setStatusTip(tr("Load an file"));
 	connect(loadAction, SIGNAL(triggered()), this, SLOT(load()));
+
+	zoomToFit = new QAction(tr("Zoom to &fit"),this);
+	zoomToFit->setShortcut(tr("F8"));
+	addAction(zoomToFit);
+	connect(zoomToFit,SIGNAL(triggered()), mapView,SLOT(zoomToFit()));
+
 }
 
 void MainWindow::createMenus()
@@ -60,14 +72,11 @@ void MainWindow::load()
 	QStringList fileNames;
 	if (fileDialog.exec())
 		fileNames = fileDialog.selectedFiles();
-	TcxReader tcxReader;
+
 	foreach(QString fileName, fileNames) {
-		QFile file(fileName);
-		if (file.open(QIODevice::ReadOnly))
-		if (!tcxReader.read(&file))
-		{
-			qDebug() << tcxReader.errorString();
-		}
+		modelController->load(fileName);
 	}
+//	mapView
+	//mapView-> fitInView(QRectF(QPointF(48, 8),QPointF(50, 9)));
 	qDebug() << fileNames;
 }

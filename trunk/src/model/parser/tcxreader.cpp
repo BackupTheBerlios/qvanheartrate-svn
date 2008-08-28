@@ -233,9 +233,8 @@ void TcxReader::readTrackpoint(Trackpoint *trackPoint)
 			}
 			else if (name() == "Position")
 			{
-				Position *p = new Position();
-				trackPoint->setPosition(p);
-				readPosition(p);
+
+				trackPoint->setPosition(readPosition());
 			}
 			else if (name() == "HeartRateBpm")
 			{
@@ -270,9 +269,10 @@ void TcxReader::readHeartRateBpm(Trackpoint *trackpoint)
 	}
 }
 
-void TcxReader::readPosition(Position *position)
+Position TcxReader::readPosition()
 {
 //	qDebug() << "TrackPoint";
+	Position position;
 	while (!atEnd())
 	{
 		readNext();
@@ -285,13 +285,14 @@ void TcxReader::readPosition(Position *position)
 			if (name() == "Hrearrjr")
 				qDebug() << "yy"; //activity->setId(readElementText());
 			else if (name() == "LatitudeDegrees")
-				position->setLatitudeDegrees(readElementText().toDouble());
+				position.setLatitudeDegrees(readElementText().toDouble());
 			else if (name() == "LongitudeDegrees")
-				position->setLongitudeDegrees(readElementText().toDouble());
+				position.setLongitudeDegrees(readElementText().toDouble());
 			else
 				readUnknownElement();
 		}
 	}
+	return position;
 }
 
 void TcxReader::readAuthor(Author */*author*/)
