@@ -23,7 +23,7 @@ class MapWidget: public QGraphicsView
 {
 	Q_OBJECT
 public:
-	MapWidget();
+	MapWidget(QWidget *w);
 	virtual ~MapWidget();
 
 public slots:

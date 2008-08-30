@@ -27,16 +27,19 @@ class ModelController : public QObject
 {
 	Q_OBJECT
 public:
-	ModelController();
+	ModelController(QObject *parent=0);
 	virtual ~ModelController();
 	bool load(QString fileName);
 	bool save(QString fileName);
 	void drawMapScene();
+	void drawCurveScene();
 	QGraphicsScene *getMapScene() {return mapScene;};
-
+	QGraphicsScene *getCurveScene() {return curveScene;};
 private:
+	QObject *parent;
 	Activities *activities;
 	QGraphicsScene *mapScene;
+	QGraphicsScene *curveScene;
 
 };
 

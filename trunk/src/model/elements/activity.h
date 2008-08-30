@@ -32,6 +32,7 @@ public:
 	void setId(QString id) {this->id = id;};
 	void save(GpxWriter *writer);
 	void drawMapScene(QGraphicsScene *scene);
+	int drawCurveScene(QGraphicsScene *scene,int offset);
 
 private:
 	QString sport;

@@ -27,9 +27,10 @@ MainWindow::MainWindow(ModelController *modelController) :
 	QMainWindow(), modelController(modelController)
 {
 
-	mapView = new MapWidget();
-	mapView->setScene(modelController->getMapScene());
-	setCentralWidget(mapView);
+	setupUi(this);
+
+	mapWidget->setScene(modelController->getMapScene());
+	curveWidget->setScene(modelController->getCurveScene());
 
 	createMenus();
 }
@@ -47,10 +48,21 @@ void MainWindow::createActions()
 	loadAction->setStatusTip(tr("Load an file"));
 	connect(loadAction, SIGNAL(triggered()), this, SLOT(load()));
 
-	zoomToFit = new QAction(tr("Zoom to &fit"),this);
+	saveAction = new QAction(tr("&Save..."), this);
+	saveAction->setShortcut(tr("Ctrl+S"));
+	saveAction->setStatusTip(tr("Save an file"));
+	connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
+
+	exitAction = new QAction(tr("&Exit"), this);
+	exitAction->setShortcut(tr("Alt+F4"));
+	exitAction->setStatusTip(tr("Exits the application"));
+	connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+	zoomToFit = new QAction(tr("Zoom to &fit"), this);
 	zoomToFit->setShortcut(tr("F8"));
 	addAction(zoomToFit);
-	connect(zoomToFit,SIGNAL(triggered()), mapView,SLOT(zoomToFit()));
+	connect(zoomToFit, SIGNAL(triggered()), mapWidget, SLOT(zoomToFit()));
+	connect(zoomToFit, SIGNAL(triggered()), curveWidget, SLOT(zoomToFit()));
 
 }
 
@@ -60,6 +72,13 @@ void MainWindow::createMenus()
 
 	fileMenu = menuBar()->addMenu(tr("&File"));
 	fileMenu->addAction(loadAction);
+	fileMenu->addAction(saveAction);
+	fileMenu->addSeparator();
+	fileMenu->addAction(exitAction);
+
+	viewMenu = menuBar()->addMenu(tr("&View"));
+	viewMenu->addAction(zoomToFit);
+
 	/*fileMenu->addAction(openAct);
 	 fileMenu->addAction(saveAct);*/
 }
@@ -71,12 +90,31 @@ void MainWindow::load()
 	fileDialog.setFileMode(QFileDialog::ExistingFiles);
 	QStringList fileNames;
 	if (fileDialog.exec())
+	{
+		fileNames = fileDialog.selectedFiles();
+		foreach(QString fileName, fileNames){
+		modelController->load(fileName);
+		zoomToFit->trigger();
+	}
+}
+//	mapView
+//mapView-> fitInView(QRectF(QPointF(48, 8),QPointF(50, 9)));
+qDebug() << fileNames;
+}
+
+void MainWindow::save()
+{
+	QFileDialog fileDialog(this);
+	fileDialog.setNameFilter(tr("GPX (*.gpx)"));
+	fileDialog.setFileMode(QFileDialog::AnyFile);
+
+	QStringList fileNames;
+	if (fileDialog.exec())
+	{
 		fileNames = fileDialog.selectedFiles();
 
-	foreach(QString fileName, fileNames) {
-		modelController->load(fileName);
+		foreach (QString fileName, fileNames){
+		modelController->save(fileName);
 	}
-//	mapView
-	//mapView-> fitInView(QRectF(QPointF(48, 8),QPointF(50, 9)));
-	qDebug() << fileNames;
+}
 }

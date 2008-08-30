@@ -33,6 +33,11 @@ public:
 	void setHeartRateBpm(int rate) {heartRateBpm = rate;};
 	void save(GpxWriter *writer);
 	Position getPosition();
+	int getHeartRateBpm() {return heartRateBpm;};
+	qreal getAltitudeMeters() {return altitudeMeters;};
+	qreal getDistanceMeters() {return distanceMeters;};
+	QDateTime getTime() {return time;};
+
 private:
 	QDateTime time;           // <Time>2008-08-21T16:24:05Z</Time>
 	Position position;

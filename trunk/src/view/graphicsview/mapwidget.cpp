@@ -16,11 +16,11 @@
 //C-  ------------------------------------------------------------------
 
 #include "mapwidget.h"
-#include <QWebView>
+//#include <QWebView>
 #include <QDebug>
 #include <QGraphicsProxyWidget>
 
-MapWidget::MapWidget() : QGraphicsView()
+MapWidget::MapWidget(QWidget *w) : QGraphicsView(w)
 {
 	//rotate(180);
 

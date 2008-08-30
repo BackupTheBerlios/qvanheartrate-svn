@@ -15,23 +15,19 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
-#ifndef ACTIVITIES_H_
-#define ACTIVITIES_H_
-
-#include "model/elements/activity.h"
-class QGraphicsScene;
-class GpxWriter;
-
-class Activities : public QList<Activity *>
+#ifndef CURVEWIDGET_H_
+#define CURVEWIDGET_H_
+#include <QGraphicsView>
+class CurveWidget : public QGraphicsView
 {
+	Q_OBJECT
 public:
-	Activities();
-	virtual ~Activities();
-	void save(GpxWriter *writer);
-	void drawMapScene(QGraphicsScene *scene);
-	void drawCurveScene(QGraphicsScene *scene);
+	CurveWidget(QWidget *w);
+	virtual ~CurveWidget();
 
+public slots:
+	void zoomToFit();
 
 };
 
-#endif /* ACTIVITIES_H_ */
+#endif /* CURVEWIDGET_H_ */

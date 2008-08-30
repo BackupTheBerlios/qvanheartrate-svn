@@ -27,10 +27,11 @@
 #include "model/elements/activities.h"
 #include "model/elements/activity.h"
 
-ModelController::ModelController()
+ModelController::ModelController(QObject *parent) : parent(parent)
 {
 	activities = new Activities;
 	mapScene = new QGraphicsScene(this);
+	curveScene = new QGraphicsScene(this);
 }
 
 ModelController::~ModelController()
@@ -56,6 +57,7 @@ bool ModelController::load(QString fileName)
 		{
 		   activities->append(a);
 	       drawMapScene();
+	       drawCurveScene();
 	    }
     }
 
@@ -80,4 +82,10 @@ bool ModelController::save(QString fileName)
 void ModelController::drawMapScene()
 {
 	activities->drawMapScene(mapScene);
+}
+
+
+void ModelController::drawCurveScene()
+{
+	activities->drawCurveScene(curveScene);
 }

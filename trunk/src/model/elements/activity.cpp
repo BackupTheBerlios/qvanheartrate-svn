@@ -56,3 +56,12 @@ void Activity::drawMapScene(QGraphicsScene *scene)
     }
 }
 
+int Activity::drawCurveScene(QGraphicsScene *scene,int offset)
+{
+	int i=offset;
+	foreach(Lap *lap, *this)
+	{
+	  i = lap->drawCurveScene(scene,i);
+    }
+	return i;
+}

@@ -18,12 +18,13 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 #include <QMainWindow>
+#include "ui_mainwindow.h"
 
 class QMenu;
 class QAction;
 class ModelController;
 class MapWidget;
-class MainWindow: public QMainWindow
+class MainWindow: public QMainWindow, public Ui_MainWindow
 {
 	Q_OBJECT
 public:
@@ -34,12 +35,16 @@ private:
 	void createMenus();
 	void createActions();
 	QAction *loadAction;
+	QAction *saveAction;
 	QAction *zoomToFit;
+	QAction *exitAction;
 	QMenu *fileMenu;
+	QMenu *viewMenu;
 	ModelController *modelController;
-	MapWidget *mapView;
+
 private slots:
 	void load();
+	void save();
 
 };
 

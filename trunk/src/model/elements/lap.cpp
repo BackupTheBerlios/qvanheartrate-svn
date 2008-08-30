@@ -45,3 +45,14 @@ void Lap::drawMapScene(QGraphicsScene *scene)
       track->drawMapScene(scene);
     }
 }
+
+int Lap::drawCurveScene(QGraphicsScene *scene, int offset)
+{
+  int i=offset;
+  foreach(Track *track, *this)
+    {
+	  i = track->drawCurveScene(scene,i,QPen(QColor(Qt::red)));
+    }
+
+  return i;
+}

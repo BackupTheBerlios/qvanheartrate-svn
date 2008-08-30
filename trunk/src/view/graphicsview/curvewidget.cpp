@@ -15,23 +15,21 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
-#ifndef ACTIVITIES_H_
-#define ACTIVITIES_H_
+#include "curvewidget.h"
 
-#include "model/elements/activity.h"
-class QGraphicsScene;
-class GpxWriter;
-
-class Activities : public QList<Activity *>
+CurveWidget::CurveWidget(QWidget *w) : QGraphicsView (w)
 {
-public:
-	Activities();
-	virtual ~Activities();
-	void save(GpxWriter *writer);
-	void drawMapScene(QGraphicsScene *scene);
-	void drawCurveScene(QGraphicsScene *scene);
+	// TODO Auto-generated constructor stub
 
+}
 
-};
+CurveWidget::~CurveWidget()
+{
+	// TODO Auto-generated destructor stub
+}
 
-#endif /* ACTIVITIES_H_ */
+void CurveWidget::zoomToFit()
+{
+	fitInView(sceneRect(),Qt::IgnoreAspectRatio);
+}
+

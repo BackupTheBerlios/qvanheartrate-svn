@@ -24,6 +24,8 @@ Trackpoint::Trackpoint()
 {
 	// TODO Auto-generated constructor stub
 	altitudeMeters = 0.0;
+	heartRateBpm = 0;
+	distanceMeters = 0.0;
 	time.setTime_t(0);
 }
 

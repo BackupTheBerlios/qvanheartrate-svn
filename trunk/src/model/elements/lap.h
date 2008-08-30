@@ -29,6 +29,7 @@ public:
 	virtual ~Lap();
 	void save(GpxWriter *writer);
 	void drawMapScene(QGraphicsScene *scene);
+	int drawCurveScene(QGraphicsScene *scene, int offset);
 
 private:
 };

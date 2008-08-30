@@ -46,3 +46,12 @@ void Activities::drawMapScene(QGraphicsScene *scene)
     activity->drawMapScene(scene);
   }
 }
+
+void Activities::drawCurveScene(QGraphicsScene *scene)
+{
+	int i=0;
+  foreach(Activity *activity, *this)
+  {
+    i=activity->drawCurveScene(scene,i);
+  }
+}

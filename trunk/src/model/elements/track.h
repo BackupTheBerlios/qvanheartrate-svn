@@ -18,9 +18,11 @@
 #ifndef TRACK_H_
 #define TRACK_H_
 #include <QList>
+#include <QPen>
 #include "trackpoint.h"
 class GpxWriter;
 class QGraphicsScene;
+
 class Track: public QList<Trackpoint *>
 {
 public:
@@ -28,6 +30,7 @@ public:
 	virtual ~Track();
 	void save(GpxWriter *writer);
 	void drawMapScene(QGraphicsScene *scene);
+	int drawCurveScene(QGraphicsScene *scene, int offset, QPen pen);
 
 
 };

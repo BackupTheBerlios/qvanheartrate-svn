@@ -57,3 +57,28 @@ void Track::drawMapScene(QGraphicsScene *scene)
   if (pa)
 	  scene->addPath(*pa,QPen(QColor(Qt::black)));
 }
+
+int Track::drawCurveScene(QGraphicsScene *scene, int offset, QPen pen)
+{
+  QPainterPath *paHeart = 0;
+  int i=offset;
+  foreach(Trackpoint *trackPoint, *this)
+  {
+	  int heartRate = trackPoint->getHeartRateBpm();
+
+	  if (heartRate != 0 || heartRate > 200)
+	  {
+		  if (!paHeart)
+			  paHeart = new QPainterPath(QPoint(i,-heartRate));
+		  else
+			  paHeart->lineTo((QPoint(i,-heartRate)));
+		  i++;
+	  }
+
+  }
+ // qDebug() << p;
+  if (paHeart)
+	  scene->addPath(*paHeart,pen);
+
+  return i;
+}

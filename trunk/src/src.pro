@@ -2,10 +2,11 @@ TEMPLATE = app
 TARGET   = qVanHeartRate
 
 
-QT += network webkit
+QT += network 
+#QT += webkit
 CONFIG += debug qtestlib 
 
-INCLUDEPATH += . 
+INCLUDEPATH += .
 
 #TRANSLATIONS = src_de.ts \
 
@@ -18,6 +19,7 @@ SOURCES  = \
            main.cpp  \
            view/mainwindow.cpp \
            view/graphicsview/mapwidget.cpp \
+           view/graphicsview/curvewidget.cpp \
            model/modelcontroller.cpp \
            model/elements/activities.cpp \
            model/elements/activity.cpp \
@@ -33,6 +35,7 @@ SOURCES  = \
 HEADERS  = \
            view/mainwindow.h \
            view/graphicsview/mapwidget.h \
+           view/graphicsview/curvewidget.h \
            model/modelcontroller.h \
            model/elements/activities.h \
            model/elements/activity.h \
@@ -45,7 +48,7 @@ HEADERS  = \
            model/parser/tcxreader.h \
            model/parser/gpxwriter.h
 
-FORMS = \
+FORMS = view/mainwindow.ui \
 
 #RESOURCES= src.qrc
 
