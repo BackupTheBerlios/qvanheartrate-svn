@@ -15,30 +15,34 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
-#ifndef LAP_H_
-#define LAP_H_
-#include <QList>
-#include "track.h"
-#include "model/statistics/statistic.h"
+#include "statistic.h"
 
-class GpxWriter;
-class QGraphicsScene;
-class Activity;
-
-class Lap: public Statistic
+Statistic::Statistic()
 {
-public:
-	Lap(Activity *activity);
-	virtual ~Lap();
-	void save(GpxWriter *writer);
-	void drawMapScene(QGraphicsScene *scene);
-	int drawCurveScene(QGraphicsScene *scene, int offset);
-    void append(Track *t) {tracks.append(t);};
-    void processNewHeartData(int HeartRate);
+	// TODO Auto-generated constructor stub
+	heartRateMaximum = 0;
+	heartRateMinimum = 250;
+	heartRateAverage = 0;
 
-private:
-	Activity *activity;
-	QList<Track *> tracks;
-};
 
-#endif /* LAP_H_ */
+}
+
+Statistic::~Statistic()
+{
+	// TODO Auto-generated destructor stub
+}
+
+void Statistic::processNewHeartData(int heartRate)
+{
+	if (heartRate > heartRateMaximum)
+		heartRateMaximum = heartRate;
+
+	if (heartRate < heartRateMinimum)
+		heartRateMinimum = heartRate;
+
+	if (heartRateAverage != 0)
+		heartRateAverage = (heartRateAverage + heartRate) / 2;
+	else
+		heartRateAverage = heartRate;
+}
+

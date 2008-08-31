@@ -17,10 +17,11 @@
 
 #include "trackpoint.h"
 #include <QDebug>
+#include "model/elements/track.h"
 #include "model/parser/gpxwriter.h"
 #include "model/elements/position.h"
 
-Trackpoint::Trackpoint()
+Trackpoint::Trackpoint(Track *track): track(track)
 {
 	// TODO Auto-generated constructor stub
 	altitudeMeters = 0.0;
@@ -32,6 +33,25 @@ Trackpoint::Trackpoint()
 Trackpoint::~Trackpoint()
 {
 	// TODO Auto-generated destructor stub
+}
+
+void Trackpoint::setAltitudeMeters(qreal altiMeters)
+{
+	altitudeMeters = altiMeters;
+//	track->processNewAltitudeData(altiMeters);
+}
+
+void Trackpoint::setDistanceMeters(qreal distMeters)
+{
+	distanceMeters = distMeters;
+//	track->processNewDistanceData(distMeters);
+}
+
+
+void Trackpoint::setHeartRateBpm(int rate)
+{
+	heartRateBpm = rate;
+	track->processNewHeartData(rate);
 }
 
 void Trackpoint::save(GpxWriter *writer)

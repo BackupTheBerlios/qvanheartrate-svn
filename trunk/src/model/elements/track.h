@@ -17,21 +17,36 @@
 
 #ifndef TRACK_H_
 #define TRACK_H_
+#include "model/statistics/statistic.h"
 #include <QList>
 #include <QPen>
 #include "trackpoint.h"
 class GpxWriter;
 class QGraphicsScene;
+class Lap;
 
-class Track: public QList<Trackpoint *>
+class Track: public Statistic
 {
+	Q_OBJECT
 public:
-	Track();
+	Track(Lap *lap);
 	virtual ~Track();
 	void save(GpxWriter *writer);
 	void drawMapScene(QGraphicsScene *scene);
 	int drawCurveScene(QGraphicsScene *scene, int offset, QPen pen);
-
+	void append(Trackpoint *tp) {trackPoints.append(tp);};
+	void processNewHeartData(int HeartRate);
+private:
+	QList<Trackpoint *> trackPoints;
+	Lap *lap;
+	/*virtual int getHeartRateMaximum() = 0;
+	virtual int getHeartRateMinimum() = 0;
+	virtual int getHeartRateAverage() = 0;
+*/
+/*	virtual qreal getAltitudeMaximum() = 0;
+	virtual qreal getAltitudeMinimum() = 0;
+	virtual qreal getAltitudeAverage() = 0;
+*/
 
 };
 

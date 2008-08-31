@@ -15,30 +15,31 @@
 //C- GNU General Public License for more details.
 //C-  ------------------------------------------------------------------
 
-#ifndef LAP_H_
-#define LAP_H_
-#include <QList>
-#include "track.h"
-#include "model/statistics/statistic.h"
+#ifndef STATISTIC_H_
+#define STATISTIC_H_
+#include <QObject>
 
-class GpxWriter;
-class QGraphicsScene;
-class Activity;
-
-class Lap: public Statistic
+class Statistic : public QObject
 {
+	Q_OBJECT
 public:
-	Lap(Activity *activity);
-	virtual ~Lap();
-	void save(GpxWriter *writer);
-	void drawMapScene(QGraphicsScene *scene);
-	int drawCurveScene(QGraphicsScene *scene, int offset);
-    void append(Track *t) {tracks.append(t);};
-    void processNewHeartData(int HeartRate);
+	Statistic();
+	virtual ~Statistic();
+
+	virtual int getHeartRateMaximum() {return heartRateMaximum;};
+	virtual int getHeartRateMinimum() {return heartRateMinimum;};
+	virtual int getHeartRateAverage() {return heartRateAverage;};
+
+public slots:
+	virtual void processNewHeartData(int HeartRate);
 
 private:
-	Activity *activity;
-	QList<Track *> tracks;
+	int heartRateMaximum, heartRateMinimum, heartRateAverage;
+
+/*	virtual qreal getAltitudeMaximum() = 0;
+	virtual qreal getAltitudeMinimum() = 0;
+	virtual qreal getAltitudeAverage() = 0;
+*/
 };
 
-#endif /* LAP_H_ */
+#endif /* STATISTIC_H_ */

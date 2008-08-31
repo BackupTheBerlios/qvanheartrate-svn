@@ -30,7 +30,8 @@ SOURCES  = \
            model/elements/trackpoint.cpp \
            model/elements/position.cpp \
            model/parser/tcxreader.cpp \
-           model/parser/gpxwriter.cpp
+           model/parser/gpxwriter.cpp \
+           model/statistics/statistic.cpp
                       
 HEADERS  = \
            view/mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS  = \
            model/elements/trackpoint.h \
            model/elements/position.h \
            model/parser/tcxreader.h \
-           model/parser/gpxwriter.h
+           model/parser/gpxwriter.h \
+           model/statistics/statistic.h
 
 FORMS = view/mainwindow.ui \
 

@@ -21,16 +21,17 @@
 
 #include "model/elements/position.h"
 class GpxWriter;
+class Track;
 class Trackpoint
 {
 public:
-	Trackpoint();
+	Trackpoint(Track *track);
 	virtual ~Trackpoint();
 	void setPosition(Position p) { position = p;};
 	void setDateTime(QDateTime dt) {time = dt;};
-	void setAltitudeMeters(qreal altiMeters) {altitudeMeters = altiMeters;};
-	void setDistanceMeters(qreal distMeters) {distanceMeters = distMeters;};
-	void setHeartRateBpm(int rate) {heartRateBpm = rate;};
+	void setAltitudeMeters(qreal altiMeters);
+	void setDistanceMeters(qreal distMeters);
+	void setHeartRateBpm(int rate);
 	void save(GpxWriter *writer);
 	Position getPosition();
 	int getHeartRateBpm() {return heartRateBpm;};
@@ -44,7 +45,7 @@ private:
     qreal altitudeMeters; // <AltitudeMeters>136.140</AltitudeMeters>
     qreal distanceMeters; // <DistanceMeters>160468.516</DistanceMeters>
     int heartRateBpm;     //     <Value>95</Value>
-
+    Track *track;
 };
 
 #endif /* TRACKPOINT_H_ */

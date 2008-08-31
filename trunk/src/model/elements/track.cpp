@@ -21,7 +21,9 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include "model/elements/position.h"
-Track::Track()
+#include "model/elements/lap.h"
+
+Track::Track(Lap *lap) : lap(lap)
 {
 	// TODO Auto-generated constructor stub
 
@@ -32,9 +34,15 @@ Track::~Track()
 	// TODO Auto-generated destructor stub
 }
 
+void Track::processNewHeartData(int HeartRate)
+{
+	Statistic::processNewHeartData(HeartRate);
+	lap->processNewHeartData(HeartRate);
+}
+
 void Track::save(GpxWriter *writer)
 {
-	foreach(Trackpoint *trackPoint, *this)
+	foreach(Trackpoint *trackPoint, trackPoints)
 	{
 		trackPoint->save(writer);
 	}
@@ -44,7 +52,7 @@ void Track::save(GpxWriter *writer)
 void Track::drawMapScene(QGraphicsScene *scene)
 {
   QPainterPath *pa = 0;
-  foreach(Trackpoint *trackPoint, *this)
+  foreach(Trackpoint *trackPoint, trackPoints)
   {
 	  Position po = trackPoint->getPosition();
 	  if (!po.isNull())
@@ -62,7 +70,7 @@ int Track::drawCurveScene(QGraphicsScene *scene, int offset, QPen pen)
 {
   QPainterPath *paHeart = 0;
   int i=offset;
-  foreach(Trackpoint *trackPoint, *this)
+  foreach(Trackpoint *trackPoint, trackPoints)
   {
 	  int heartRate = trackPoint->getHeartRateBpm();
 

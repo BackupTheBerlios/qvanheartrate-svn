@@ -39,7 +39,7 @@ void Activity::save(GpxWriter *writer)
 	writer->writeStartElement("trk");
 	writer->writeStartElement("trkseg");
 
-	foreach(Lap *lap, *this)
+	foreach(Lap *lap, laps)
 	{
 		lap->save(writer);
 	}
@@ -50,7 +50,7 @@ void Activity::save(GpxWriter *writer)
 
 void Activity::drawMapScene(QGraphicsScene *scene)
 {
-	foreach(Lap *lap, *this)
+	foreach(Lap *lap, laps)
 	{
 	  lap->drawMapScene(scene);
     }
@@ -59,7 +59,7 @@ void Activity::drawMapScene(QGraphicsScene *scene)
 int Activity::drawCurveScene(QGraphicsScene *scene,int offset)
 {
 	int i=offset;
-	foreach(Lap *lap, *this)
+	foreach(Lap *lap, laps)
 	{
 	  i = lap->drawCurveScene(scene,i);
     }

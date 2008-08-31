@@ -140,7 +140,7 @@ void TcxReader::readActivity(Activity *activity)
 			}
 			else if (name() == "Lap")
 			{
-				Lap *l = new Lap();
+				Lap *l = new Lap(activity);
 				activity->append(l);
 				readLap(l);
 			}
@@ -149,11 +149,15 @@ void TcxReader::readActivity(Activity *activity)
 				readUnknownElement();
 		}
 	}
+	qDebug() << "Acitivty: Avg." << activity->getHeartRateAverage();
+	qDebug() << "Acitivty: Min." << activity->getHeartRateMinimum();
+	qDebug() << "Acitivty: Max." << activity->getHeartRateMaximum();
 }
 
 void TcxReader::readLap(Lap *lap)
 {
 //	qDebug() << "Lap";
+
 	while (!atEnd())
 	{
 		readNext();
@@ -167,7 +171,7 @@ void TcxReader::readLap(Lap *lap)
 				qDebug() << "yy"; //activity->setId(readElementText());
 			else if (name() == "Track")
 			{
-				Track *t = new Track();
+				Track *t = new Track(lap);
 				lap->append(t);
 				readTrack(t);
 			}
@@ -177,6 +181,9 @@ void TcxReader::readLap(Lap *lap)
 		}
 	}
 
+	qDebug() << "  Lap: Avg." << lap->getHeartRateAverage();
+	qDebug() << "  Lap: Min." << lap->getHeartRateMinimum();
+	qDebug() << "  Lap: Max." << lap->getHeartRateMaximum();
 }
 
 void TcxReader::readTrack(Track *track)
@@ -191,11 +198,9 @@ void TcxReader::readTrack(Track *track)
 
 		if (isStartElement())
 		{
-			if (name() == "Hrearrjr")
-				qDebug() << "yy"; //activity->setId(readElementText());
-			else if (name() == "Trackpoint")
+			if (name() == "Trackpoint")
 			{
-				Trackpoint *tp = new Trackpoint();
+				Trackpoint *tp = new Trackpoint(track);
 				track->append(tp);
 				readTrackpoint(tp);
 			}
@@ -204,6 +209,11 @@ void TcxReader::readTrack(Track *track)
 				readUnknownElement();
 		}
 	}
+
+	qDebug() << "    Track: Avg." << track->getHeartRateAverage();
+	qDebug() << "    Track: Min." << track->getHeartRateMinimum();
+	qDebug() << "    Track: Max." << track->getHeartRateMaximum();
+
 }
 
 void TcxReader::readTrackpoint(Trackpoint *trackPoint)

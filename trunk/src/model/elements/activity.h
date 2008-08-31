@@ -24,7 +24,7 @@
 #include "creator.h"
 class GpxWriter;
 class QGraphicsScene;
-class Activity : public QList<Lap *>
+class Activity : public Statistic
 {
 public:
 	Activity();
@@ -33,8 +33,10 @@ public:
 	void save(GpxWriter *writer);
 	void drawMapScene(QGraphicsScene *scene);
 	int drawCurveScene(QGraphicsScene *scene,int offset);
+    void append(Lap *l) {laps.append(l);};
 
 private:
+    QList<Lap *> laps;
 	QString sport;
 	QString id;
 	Creator creator;

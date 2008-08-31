@@ -18,8 +18,8 @@
 #include "lap.h"
 #include "model/elements/track.h"
 #include "model/parser/gpxwriter.h"
-
-Lap::Lap()
+#include "model/elements/activity.h"
+Lap::Lap(Activity *activity) : activity(activity)
 {
 	// TODO Auto-generated constructor stub
 
@@ -30,9 +30,15 @@ Lap::~Lap()
 	// TODO Auto-generated destructor stub
 }
 
+void Lap::processNewHeartData(int HeartRate)
+{
+	Statistic::processNewHeartData(HeartRate);
+	activity->processNewHeartData(HeartRate);
+}
+
 void Lap::save(GpxWriter *writer)
 {
-	foreach(Track *track, *this)
+	foreach(Track *track, tracks)
 	{
 		track->save(writer);
 	}
@@ -40,7 +46,7 @@ void Lap::save(GpxWriter *writer)
 
 void Lap::drawMapScene(QGraphicsScene *scene)
 {
-  foreach(Track *track, *this)
+  foreach(Track *track, tracks)
     {
       track->drawMapScene(scene);
     }
@@ -49,7 +55,7 @@ void Lap::drawMapScene(QGraphicsScene *scene)
 int Lap::drawCurveScene(QGraphicsScene *scene, int offset)
 {
   int i=offset;
-  foreach(Track *track, *this)
+  foreach(Track *track, tracks)
     {
 	  i = track->drawCurveScene(scene,i,QPen(QColor(Qt::red)));
     }
